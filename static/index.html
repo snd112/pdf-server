@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=yes" />
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <title>PDFStudio | Professional PDF Tools</title>
 
@@ -28,52 +31,54 @@ color:#0f1720;
 
 .container{
 max-width:1440px;
-margin:auto;
-padding:0 25px;
+margin:0 auto;
+padding:0 32px;
 }
 
 .site-header{
-background:#fff;
-padding:18px 0;
+background:#ffffff;
+padding:20px 0;
 border-bottom:1px solid #e2ece5;
 position:sticky;
 top:0;
-z-index:999;
-backdrop-filter:blur(6px);
+z-index:100;
+backdrop-filter:blur(4px);
 }
 
 .header-flex{
 display:flex;
 justify-content:space-between;
 align-items:center;
+flex-wrap:wrap;
 }
 
 .logo{
 display:flex;
 align-items:center;
-gap:10px;
+gap:12px;
 font-size:28px;
 font-weight:800;
 }
 
 .logo i{
+font-size:36px;
 color:#e11d48;
-font-size:35px;
 }
 
 .logo span{
 background:linear-gradient(135deg,#0f2b3d,#1e6f5c);
 -webkit-background-clip:text;
+background-clip:text;
 color:transparent;
 }
 
 .header-badge{
-background:#ecf3ef;
-padding:7px 18px;
-border-radius:40px;
 font-size:13px;
+background:#ecf3ef;
+padding:6px 18px;
+border-radius:40px;
+font-weight:500;
 color:#1e6f5c;
-font-weight:600;
 }
 
 .hero-area{
@@ -84,14 +89,17 @@ margin:60px 0 40px;
 .hero-area h1{
 font-size:3.4rem;
 font-weight:800;
+letter-spacing:-1.5px;
 background:linear-gradient(135deg,#1e293b,#1e6f5c);
 -webkit-background-clip:text;
+background-clip:text;
 color:transparent;
 }
 
 .hero-area p{
-margin-top:12px;
 color:#5c6f7e;
+margin-top:12px;
+font-size:1rem;
 }
 
 .search-block{
@@ -106,14 +114,16 @@ left:20px;
 top:50%;
 transform:translateY(-50%);
 color:#8ea0b0;
+font-size:18px;
 }
 
 #filterSearch{
 width:100%;
-padding:15px 20px 15px 50px;
+padding:15px 22px 15px 54px;
 border-radius:80px;
 border:2px solid #dfe9e4;
 font-size:.95rem;
+background:white;
 outline:none;
 }
 
@@ -123,9 +133,8 @@ box-shadow:0 0 0 4px rgba(30,111,92,.1);
 }
 
 .progress-wrapper{
-width:100%;
-max-width:600px;
-margin:25px auto 0;
+max-width:540px;
+margin:22px auto 0;
 display:none;
 }
 
@@ -139,9 +148,9 @@ font-weight:600;
 
 .progress-bar{
 width:100%;
-height:13px;
+height:12px;
 background:#dfe9e4;
-border-radius:40px;
+border-radius:50px;
 overflow:hidden;
 }
 
@@ -149,31 +158,31 @@ overflow:hidden;
 height:100%;
 width:0%;
 background:linear-gradient(90deg,#1e6f5c,#2cb67d);
-border-radius:40px;
+border-radius:50px;
 transition:width .25s linear;
 }
 
 .tools-grid{
 display:grid;
 grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-gap:30px;
-margin-top:40px;
+gap:38px 34px;
+margin:50px 0 35px;
 }
 
 .tool-card{
-background:#fff;
-padding:20px 24px;
+background:#ffffff;
 border-radius:28px;
+padding:20px 26px;
 display:flex;
-justify-content:space-between;
 align-items:center;
-box-shadow:0 4px 12px rgba(0,0,0,.03);
+justify-content:space-between;
 transition:.3s;
+box-shadow:0 4px 12px rgba(0,0,0,.02),0 0 0 1px #e2ece5;
 }
 
 .tool-card:hover{
 transform:translateY(-5px);
-box-shadow:0 18px 32px rgba(0,0,0,.08);
+box-shadow:0 22px 32px -14px rgba(0,0,0,.1),0 0 0 1px #c2d9cf;
 }
 
 .tool-info{
@@ -181,48 +190,53 @@ display:flex;
 align-items:center;
 gap:14px;
 font-weight:600;
+font-size:.98rem;
 }
 
 .tool-info i{
 font-size:30px;
+width:38px;
 color:#1e6f5c;
 }
 
 .use-btn{
-border:none;
 background:#1f2a3e;
-color:#fff;
-padding:10px 25px;
+border:none;
+padding:9px 26px;
 border-radius:40px;
-cursor:pointer;
+color:white;
 font-weight:600;
+cursor:pointer;
 transition:.2s;
+font-size:.85rem;
 }
 
 .use-btn:hover{
 background:#1e6f5c;
+transform:scale(1.02);
 }
 
 .ad-slot{
+width:100%;
 background:#eef4f1;
-border-radius:28px;
-min-height:140px;
+border-radius:30px;
+min-height:130px;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 border:2px dashed #cbdcd4;
+font-size:22px;
 font-weight:700;
-font-size:20px;
-color:#7b8d86;
+color:#8da49b;
 }
 
 .footer{
 text-align:center;
-padding:45px 0;
-margin-top:50px;
+padding:38px 0 48px;
 border-top:1px solid #e0eae4;
-font-size:13px;
+margin-top:50px;
 color:#6b7f8e;
+font-size:13px;
 }
 
 .hide-tool{
@@ -231,20 +245,23 @@ display:none !important;
 
 .pdf-toast{
 position:fixed;
-bottom:25px;
+bottom:28px;
 left:50%;
 transform:translateX(-50%);
 background:#1f2a3e;
-color:#fff;
-padding:13px 28px;
-border-radius:50px;
-font-size:14px;
-z-index:99999;
+color:white;
+padding:12px 32px;
+border-radius:60px;
+font-size:.85rem;
+font-weight:500;
+z-index:9999;
+border:1px solid #1e6f5c;
 animation:slideUp .3s ease;
 }
 
 .pdf-toast.error{
 background:#dc2626;
+border-color:#dc2626;
 }
 
 @keyframes slideUp{
@@ -258,24 +275,30 @@ transform:translateX(-50%) translateY(0);
 }
 }
 
-@media(max-width:760px){
+@media (max-width:760px){
+
+.container{
+padding:0 20px;
+}
 
 .hero-area h1{
 font-size:2.2rem;
 }
 
-.container{
-padding:0 18px;
+.tools-grid{
+gap:28px;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="site-header">
+
 <div class="container header-flex">
 
 <div class="logo">
@@ -285,23 +308,24 @@ padding:0 18px;
 
 <div class="header-badge">
 <i class="fas fa-bolt"></i>
-Reliable tools
+reliable tools
 </div>
 
 </div>
+
 </div>
 
 <div class="container">
 
 <div class="hero-area">
 
-<h1>Master Your PDFs</h1>
+<h1>master your PDFs</h1>
 
-<p>Convert, merge, split, compress & protect PDF files</p>
+<p>convert, merge, split, protect, ocr, powerpoint & more</p>
 
 <div class="search-block">
 <i class="fas fa-search"></i>
-<input type="text" id="filterSearch" placeholder="Search tool...">
+<input type="text" id="filterSearch" placeholder="search tool...">
 </div>
 
 <div class="progress-wrapper" id="progressWrapper">
@@ -319,9 +343,30 @@ Reliable tools
 
 </div>
 
+<!-- GROUP 1 -->
+
 <div class="tools-grid">
 
-<!-- TOOL -->
+<div class="tool-card" data-name="pdf to powerpoint">
+<div class="tool-info">
+<i class="fas fa-chalkboard"></i>
+<span>PDF to PowerPoint</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="tool-card" data-name="powerpoint to pdf">
+<div class="tool-info">
+<i class="fas fa-slideshare"></i>
+<span>PowerPoint to PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="ad-slot">
+Advertisement Space
+</div>
+
 <div class="tool-card" data-name="pdf to word">
 <div class="tool-info">
 <i class="fas fa-file-word"></i>
@@ -338,56 +383,36 @@ Reliable tools
 <button class="use-btn">Use</button>
 </div>
 
-<!-- AD -->
-<div class="ad-slot">
-Google Adsense 728x90
-</div>
-
-<!-- TOOL -->
-<div class="tool-card" data-name="merge pdf">
-<div class="tool-info">
-<i class="fas fa-object-group"></i>
-<span>Merge PDF</span>
-</div>
-<button class="use-btn">Use</button>
-</div>
-
-<div class="tool-card" data-name="compress pdf">
-<div class="tool-info">
-<i class="fas fa-compress-alt"></i>
-<span>Compress PDF</span>
-</div>
-<button class="use-btn">Use</button>
-</div>
-
-<!-- AD -->
 <div class="ad-slot">
 Advertisement Space
 </div>
 
-<!-- TOOL -->
-<div class="tool-card" data-name="split pdf">
+</div>
+
+<!-- GROUP 2 -->
+
+<div class="tools-grid">
+
+<div class="tool-card" data-name="pdf to excel">
 <div class="tool-info">
-<i class="fas fa-cut"></i>
-<span>Split PDF</span>
+<i class="fas fa-file-excel"></i>
+<span>PDF to Excel</span>
 </div>
 <button class="use-btn">Use</button>
 </div>
 
-<div class="tool-card" data-name="unlock pdf">
+<div class="tool-card" data-name="excel to pdf">
 <div class="tool-info">
-<i class="fas fa-unlock-alt"></i>
-<span>Unlock PDF</span>
+<i class="fas fa-table"></i>
+<span>Excel to PDF</span>
 </div>
 <button class="use-btn">Use</button>
 </div>
 
-<!-- AD -->
 <div class="ad-slot">
-Premium Ads Area
+Advertisement Space
 </div>
 
-<!-- TOOL -->
 <div class="tool-card" data-name="pdf to jpg">
 <div class="tool-info">
 <i class="fas fa-image"></i>
@@ -404,10 +429,86 @@ Premium Ads Area
 <button class="use-btn">Use</button>
 </div>
 
+<div class="ad-slot">
+Advertisement Space
+</div>
+
+</div>
+
+<!-- GROUP 3 -->
+
+<div class="tools-grid">
+
+<div class="tool-card" data-name="merge pdf">
+<div class="tool-info">
+<i class="fas fa-object-group"></i>
+<span>Merge PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="tool-card" data-name="split pdf">
+<div class="tool-info">
+<i class="fas fa-cut"></i>
+<span>Split PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="ad-slot">
+Advertisement Space
+</div>
+
+<div class="tool-card" data-name="compress pdf">
+<div class="tool-info">
+<i class="fas fa-compress-alt"></i>
+<span>Compress PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="tool-card" data-name="protect pdf">
+<div class="tool-info">
+<i class="fas fa-lock"></i>
+<span>Protect PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="ad-slot">
+Advertisement Space
+</div>
+
+</div>
+
+<!-- GROUP 4 -->
+
+<div class="tools-grid">
+
+<div class="tool-card" data-name="unlock pdf">
+<div class="tool-info">
+<i class="fas fa-unlock-alt"></i>
+<span>Unlock PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="tool-card" data-name="ocr pdf">
+<div class="tool-info">
+<i class="fas fa-text-height"></i>
+<span>OCR PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="ad-slot">
+Advertisement Space
+</div>
+
 </div>
 
 <div class="footer">
-© 2026 PDFStudio — Monetization Ready
+<span>© 2026 PDFStudio — precision tools & ad monetization ready</span>
 </div>
 
 </div>
@@ -418,27 +519,25 @@ const API_URL='https://pdf-server-production-8b7b.up.railway.app';
 
 function showToast(message,isError=false){
 
-let existing=document.querySelector('.pdf-toast');
+let existingToast=document.querySelector('.pdf-toast');
 
-if(existing) existing.remove();
+if(existingToast) existingToast.remove();
 
-const toast=document.createElement('div');
+const toastEl=document.createElement('div');
 
-toast.className='pdf-toast';
+toastEl.className='pdf-toast';
 
-if(isError) toast.classList.add('error');
+if(isError) toastEl.classList.add('error');
 
-toast.innerHTML=message;
+toastEl.innerHTML=message;
 
-document.body.appendChild(toast);
-
-setTimeout(()=>{
-
-toast.style.opacity='0';
+document.body.appendChild(toastEl);
 
 setTimeout(()=>{
-toast.remove();
-},300);
+
+toastEl.style.opacity='0';
+
+setTimeout(()=>toastEl.remove(),300);
 
 },3000);
 
@@ -447,18 +546,14 @@ toast.remove();
 async function uploadAndDownload(files,endpoint,outputFileName,toolName){
 
 if(!files || files.length===0){
-
-showToast('Please select file',true);
+showToast("Please select a file",true);
 return;
-
 }
 
 const formData=new FormData();
 
 for(let i=0;i<files.length;i++){
-
 formData.append('files',files[i]);
-
 }
 
 const progressWrapper=document.getElementById('progressWrapper');
@@ -475,7 +570,9 @@ progressFill.style.width='0%';
 
 progressPercent.innerText='0%';
 
-return new Promise((resolve,reject)=>{
+try{
+
+await new Promise((resolve,reject)=>{
 
 const xhr=new XMLHttpRequest();
 
@@ -505,7 +602,7 @@ progressFill.style.width='100%';
 
 progressPercent.innerText='100%';
 
-progressText.innerText='Completed';
+progressText.innerText='Processing completed';
 
 const blob=xhr.response;
 
@@ -521,12 +618,10 @@ a.click();
 
 URL.revokeObjectURL(url);
 
-showToast(`✅ ${toolName} completed`);
+showToast(`✅ ${toolName} completed successfully!`);
 
 setTimeout(()=>{
-
 progressWrapper.style.display='none';
-
 },2000);
 
 resolve();
@@ -545,7 +640,7 @@ reject();
 
 xhr.onerror=function(){
 
-showToast('❌ Connection error',true);
+showToast(`❌ Connection error`,true);
 
 progressWrapper.style.display='none';
 
@@ -558,6 +653,12 @@ xhr.responseType='blob';
 xhr.send(formData);
 
 });
+
+}catch(err){
+
+console.error(err);
+
+}
 
 }
 
@@ -582,6 +683,8 @@ toolName
 
 }
 
+input.remove();
+
 };
 
 input.click();
@@ -600,12 +703,7 @@ input.multiple=true;
 
 input.onchange=async()=>{
 
-if(input.files.length<2){
-
-showToast('Select at least 2 PDFs',true);
-return;
-
-}
+if(input.files.length>=2){
 
 await uploadAndDownload(
 Array.from(input.files),
@@ -613,6 +711,14 @@ Array.from(input.files),
 'merged.pdf',
 'Merge PDF'
 );
+
+}else{
+
+showToast("Please select at least 2 PDF files to merge",true);
+
+}
+
+input.remove();
 
 };
 
@@ -624,7 +730,9 @@ async function realJpgToPdf(files){
 
 const { jsPDF }=window.jspdf;
 
-for(let file of files){
+for(let i=0;i<files.length;i++){
+
+const file=files[i];
 
 const imgUrl=URL.createObjectURL(file);
 
@@ -648,9 +756,7 @@ img.width,
 img.height
 );
 
-pdf.save(
-file.name.replace(/\.[^/.]+$/,'')+'.pdf'
-);
+pdf.save(`${file.name.replace(/\.[^/.]+$/,'')}.pdf`);
 
 URL.revokeObjectURL(imgUrl);
 
@@ -664,7 +770,7 @@ img.src=imgUrl;
 
 }
 
-showToast('✅ JPG converted');
+showToast(`✅ ${files.length} image(s) converted`);
 
 }
 
@@ -686,38 +792,64 @@ await realJpgToPdf(Array.from(input.files));
 
 }
 
+input.remove();
+
 };
 
 input.click();
 
 }
 
-function handleTool(toolId){
+function handleTool(toolName,toolId){
 
 switch(toolId){
 
-case 'pdf-to-word':
-handleSingleFile('/pdf-to-word','converted.docx','PDF to Word');
-break;
-
-case 'word-to-pdf':
-handleSingleFile('/word-to-pdf','converted.pdf','Word to PDF','.doc,.docx');
-break;
-
 case 'merge-pdf':
 handleMerge();
+break;
+
+case 'split-pdf':
+handleSingleFile('/split','split_pages.zip','Split PDF');
 break;
 
 case 'compress-pdf':
 handleSingleFile('/compress','compressed.pdf','Compress PDF');
 break;
 
-case 'split-pdf':
-handleSingleFile('/split','split.zip','Split PDF');
+case 'protect-pdf':
+handleSingleFile('/protect','protected.pdf','Protect PDF');
 break;
 
 case 'unlock-pdf':
 handleSingleFile('/unlock','unlocked.pdf','Unlock PDF');
+break;
+
+case 'ocr-pdf':
+handleSingleFile('/ocr','ocr_output.pdf','OCR PDF');
+break;
+
+case 'pdf-to-word':
+handleSingleFile('/pdf-to-word','converted.docx','PDF to Word');
+break;
+
+case 'word-to-pdf':
+handleSingleFile('/word-to-pdf','converted.pdf','Word to PDF','.docx,.doc');
+break;
+
+case 'pdf-to-excel':
+handleSingleFile('/pdf-to-excel','converted.xlsx','PDF to Excel');
+break;
+
+case 'excel-to-pdf':
+handleSingleFile('/excel-to-pdf','converted.pdf','Excel to PDF','.xlsx,.xls');
+break;
+
+case 'pdf-to-powerpoint':
+handleSingleFile('/pdf-to-powerpoint','converted.pptx','PDF to PowerPoint');
+break;
+
+case 'powerpoint-to-pdf':
+handleSingleFile('/powerpoint-to-pdf','converted.pdf','PowerPoint to PDF','.pptx,.ppt');
 break;
 
 case 'pdf-to-jpg':
@@ -729,7 +861,7 @@ handleJpgToPdf();
 break;
 
 default:
-showToast('Coming soon');
+showToast(`✨ ${toolName} - coming soon`);
 
 }
 
@@ -737,35 +869,58 @@ showToast('Coming soon');
 
 document.querySelectorAll('.use-btn').forEach(btn=>{
 
-btn.addEventListener('click',()=>{
+btn.addEventListener('click',(e)=>{
 
-const card=btn.closest('.tool-card');
+e.stopPropagation();
 
-const toolId=card
-.getAttribute('data-name')
-.toLowerCase()
-.replace(/ /g,'-');
+const parentCard=btn.closest('.tool-card');
 
-handleTool(toolId);
+let toolName='Tool';
+
+let toolId='';
+
+if(parentCard){
+
+const nameSpan=parentCard.querySelector('.tool-info span');
+
+if(nameSpan) toolName=nameSpan.innerText;
+
+const dataName=parentCard.getAttribute('data-name');
+
+toolId=dataName
+? dataName.toLowerCase().replace(/ /g,'-')
+: '';
+
+}
+
+handleTool(toolName,toolId);
 
 });
 
 });
 
-document.getElementById('filterSearch')
-.addEventListener('input',(e)=>{
+document.getElementById('filterSearch').addEventListener('input',(e)=>{
 
 const query=e.target.value.toLowerCase();
 
-document.querySelectorAll('.tool-card')
-.forEach(card=>{
+document.querySelectorAll('.tool-card').forEach(card=>{
 
-const text=card.innerText.toLowerCase();
+const text=(card.getAttribute('data-name') || '')+' '+card.innerText;
 
 card.classList.toggle(
 'hide-tool',
-!text.includes(query)
+query!=='' && !text.toLowerCase().includes(query)
 );
+
+});
+
+});
+
+document.querySelectorAll('.ad-slot').forEach(slot=>{
+
+slot.addEventListener('click',()=>{
+
+showToast("📢 Premium ad inventory — contact for partnerships");
 
 });
 
@@ -774,4 +929,5 @@ card.classList.toggle(
 </script>
 
 </body>
+
 </html>
