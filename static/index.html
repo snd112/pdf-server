@@ -1,249 +1,774 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>PDFStudio | Professional PDF Tools</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=yes" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<title>PDFStudio | Professional PDF Tools</title>
 
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Inter',sans-serif; background:#f4f8f6; color:#0f1720; }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    .container { max-width:1440px; margin:auto; padding:0 32px; }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    .site-header {
-      background:#fff;
-      padding:20px 0;
-      border-bottom:1px solid #e2ece5;
-      position:sticky;
-      top:0;
-      z-index:100;
-      backdrop-filter:blur(4px);
-    }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    .header-flex { display:flex; justify-content:space-between; align-items:center; }
+<style>
 
-    .logo { display:flex; gap:12px; font-size:28px; font-weight:800; }
-    .logo i { font-size:36px; color:#e11d48; }
-    .logo span { background:linear-gradient(135deg,#0f2b3d,#1e6f5c); -webkit-background-clip:text; color:transparent; }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-    .header-badge {
-      background:#ecf3ef;
-      padding:6px 18px;
-      border-radius:40px;
-      color:#1e6f5c;
-      font-size:13px;
-    }
+body{
+font-family:'Inter',sans-serif;
+background:#f4f8f6;
+color:#0f1720;
+}
 
-    .hero-area { text-align:center; margin:60px 0 40px; }
+.container{
+max-width:1440px;
+margin:auto;
+padding:0 25px;
+}
 
-    .hero-area h1 {
-      font-size:3.4rem;
-      font-weight:800;
-      background:linear-gradient(135deg,#1e293b,#1e6f5c);
-      -webkit-background-clip:text;
-      color:transparent;
-    }
+.site-header{
+background:#fff;
+padding:18px 0;
+border-bottom:1px solid #e2ece5;
+position:sticky;
+top:0;
+z-index:999;
+backdrop-filter:blur(6px);
+}
 
-    .search-block { max-width:540px; margin:30px auto; position:relative; }
-    .search-block i { position:absolute; left:20px; top:50%; transform:translateY(-50%); }
+.header-flex{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-    #filterSearch {
-      width:100%;
-      padding:15px 22px 15px 54px;
-      border-radius:80px;
-      border:2px solid #dfe9e4;
-      outline:none;
-    }
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:28px;
+font-weight:800;
+}
 
-    .tools-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-      gap:30px;
-      margin:40px 0;
-    }
+.logo i{
+color:#e11d48;
+font-size:35px;
+}
 
-    .tool-card {
-      background:#fff;
-      border-radius:28px;
-      padding:20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      box-shadow:0 4px 12px rgba(0,0,0,0.05);
-      transition:0.3s;
-    }
+.logo span{
+background:linear-gradient(135deg,#0f2b3d,#1e6f5c);
+-webkit-background-clip:text;
+color:transparent;
+}
 
-    .tool-card:hover { transform:translateY(-5px); }
+.header-badge{
+background:#ecf3ef;
+padding:7px 18px;
+border-radius:40px;
+font-size:13px;
+color:#1e6f5c;
+font-weight:600;
+}
 
-    .tool-info { display:flex; gap:12px; align-items:center; }
+.hero-area{
+text-align:center;
+margin:60px 0 40px;
+}
 
-    .use-btn {
-      background:#1f2a3e;
-      color:#fff;
-      border:none;
-      padding:9px 22px;
-      border-radius:40px;
-      cursor:pointer;
-    }
+.hero-area h1{
+font-size:3.4rem;
+font-weight:800;
+background:linear-gradient(135deg,#1e293b,#1e6f5c);
+-webkit-background-clip:text;
+color:transparent;
+}
 
-    .ad-slot {
-      background:#eef4f1;
-      min-height:120px;
-      margin:20px 0;
-      border-radius:20px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border:2px dashed #cbdcd4;
-      font-size:14px;
-      color:#666;
-    }
+.hero-area p{
+margin-top:12px;
+color:#5c6f7e;
+}
 
-    .hide-tool { display:none; }
+.search-block{
+max-width:540px;
+margin:32px auto 0;
+position:relative;
+}
 
-    /* PROGRESS BAR */
-    #progressBar {
-      position:fixed;
-      top:0;
-      left:0;
-      height:4px;
-      width:0%;
-      background:#1e6f5c;
-      z-index:9999;
-      transition:0.2s;
-    }
+.search-block i{
+position:absolute;
+left:20px;
+top:50%;
+transform:translateY(-50%);
+color:#8ea0b0;
+}
 
-  </style>
+#filterSearch{
+width:100%;
+padding:15px 20px 15px 50px;
+border-radius:80px;
+border:2px solid #dfe9e4;
+font-size:.95rem;
+outline:none;
+}
+
+#filterSearch:focus{
+border-color:#1e6f5c;
+box-shadow:0 0 0 4px rgba(30,111,92,.1);
+}
+
+.progress-wrapper{
+width:100%;
+max-width:600px;
+margin:25px auto 0;
+display:none;
+}
+
+.progress-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:8px;
+font-size:13px;
+font-weight:600;
+}
+
+.progress-bar{
+width:100%;
+height:13px;
+background:#dfe9e4;
+border-radius:40px;
+overflow:hidden;
+}
+
+.progress-fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#1e6f5c,#2cb67d);
+border-radius:40px;
+transition:width .25s linear;
+}
+
+.tools-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+gap:30px;
+margin-top:40px;
+}
+
+.tool-card{
+background:#fff;
+padding:20px 24px;
+border-radius:28px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 4px 12px rgba(0,0,0,.03);
+transition:.3s;
+}
+
+.tool-card:hover{
+transform:translateY(-5px);
+box-shadow:0 18px 32px rgba(0,0,0,.08);
+}
+
+.tool-info{
+display:flex;
+align-items:center;
+gap:14px;
+font-weight:600;
+}
+
+.tool-info i{
+font-size:30px;
+color:#1e6f5c;
+}
+
+.use-btn{
+border:none;
+background:#1f2a3e;
+color:#fff;
+padding:10px 25px;
+border-radius:40px;
+cursor:pointer;
+font-weight:600;
+transition:.2s;
+}
+
+.use-btn:hover{
+background:#1e6f5c;
+}
+
+.ad-slot{
+background:#eef4f1;
+border-radius:28px;
+min-height:140px;
+display:flex;
+justify-content:center;
+align-items:center;
+border:2px dashed #cbdcd4;
+font-weight:700;
+font-size:20px;
+color:#7b8d86;
+}
+
+.footer{
+text-align:center;
+padding:45px 0;
+margin-top:50px;
+border-top:1px solid #e0eae4;
+font-size:13px;
+color:#6b7f8e;
+}
+
+.hide-tool{
+display:none !important;
+}
+
+.pdf-toast{
+position:fixed;
+bottom:25px;
+left:50%;
+transform:translateX(-50%);
+background:#1f2a3e;
+color:#fff;
+padding:13px 28px;
+border-radius:50px;
+font-size:14px;
+z-index:99999;
+animation:slideUp .3s ease;
+}
+
+.pdf-toast.error{
+background:#dc2626;
+}
+
+@keyframes slideUp{
+from{
+opacity:0;
+transform:translateX(-50%) translateY(20px);
+}
+to{
+opacity:1;
+transform:translateX(-50%) translateY(0);
+}
+}
+
+@media(max-width:760px){
+
+.hero-area h1{
+font-size:2.2rem;
+}
+
+.container{
+padding:0 18px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-<div id="progressBar"></div>
-
 <div class="site-header">
-  <div class="container header-flex">
-    <div class="logo">
-      <i class="fas fa-file-pdf"></i>
-      <span>PDFStudio</span>
-    </div>
-    <div class="header-badge">Tools Ready</div>
-  </div>
+<div class="container header-flex">
+
+<div class="logo">
+<i class="fas fa-file-pdf"></i>
+<span>PDFStudio</span>
+</div>
+
+<div class="header-badge">
+<i class="fas fa-bolt"></i>
+Reliable tools
+</div>
+
+</div>
 </div>
 
 <div class="container">
 
-  <div class="hero-area">
-    <h1>Master Your PDFs</h1>
+<div class="hero-area">
 
-    <div class="search-block">
-      <i class="fas fa-search"></i>
-      <input id="filterSearch" placeholder="Search tool...">
-    </div>
-  </div>
+<h1>Master Your PDFs</h1>
 
-  <div class="ad-slot">ADVERTISEMENT</div>
+<p>Convert, merge, split, compress & protect PDF files</p>
 
-  <div class="tools-grid">
+<div class="search-block">
+<i class="fas fa-search"></i>
+<input type="text" id="filterSearch" placeholder="Search tool...">
+</div>
 
-    <div class="tool-card">
-      <div class="tool-info"><i class="fas fa-file-word"></i>PDF to Word</div>
-      <button class="use-btn" onclick="upload('/pdf-to-word','word.docx')">Use</button>
-    </div>
+<div class="progress-wrapper" id="progressWrapper">
 
-    <div class="tool-card">
-      <div class="tool-info"><i class="fas fa-file-pdf"></i>Word to PDF</div>
-      <button class="use-btn" onclick="upload('/word-to-pdf','file.pdf')">Use</button>
-    </div>
+<div class="progress-top">
+<span id="progressText">Uploading...</span>
+<span id="progressPercent">0%</span>
+</div>
 
-  </div>
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
 
-  <div class="ad-slot">ADVERTISEMENT</div>
+</div>
 
-  <div class="tools-grid">
+</div>
 
-    <div class="tool-card">
-      <div class="tool-info"><i class="fas fa-file-excel"></i>PDF to Excel</div>
-      <button class="use-btn" onclick="upload('/pdf-to-excel','file.xlsx')">Use</button>
-    </div>
+<div class="tools-grid">
 
-    <div class="tool-card">
-      <div class="tool-info"><i class="fas fa-image"></i>PDF to JPG</div>
-      <button class="use-btn" onclick="upload('/pdf-to-jpg','images.zip')">Use</button>
-    </div>
+<!-- TOOL -->
+<div class="tool-card" data-name="pdf to word">
+<div class="tool-info">
+<i class="fas fa-file-word"></i>
+<span>PDF to Word</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
 
-  </div>
+<div class="tool-card" data-name="word to pdf">
+<div class="tool-info">
+<i class="fas fa-file-pdf"></i>
+<span>Word to PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<!-- AD -->
+<div class="ad-slot">
+Google Adsense 728x90
+</div>
+
+<!-- TOOL -->
+<div class="tool-card" data-name="merge pdf">
+<div class="tool-info">
+<i class="fas fa-object-group"></i>
+<span>Merge PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="tool-card" data-name="compress pdf">
+<div class="tool-info">
+<i class="fas fa-compress-alt"></i>
+<span>Compress PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<!-- AD -->
+<div class="ad-slot">
+Advertisement Space
+</div>
+
+<!-- TOOL -->
+<div class="tool-card" data-name="split pdf">
+<div class="tool-info">
+<i class="fas fa-cut"></i>
+<span>Split PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="tool-card" data-name="unlock pdf">
+<div class="tool-info">
+<i class="fas fa-unlock-alt"></i>
+<span>Unlock PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<!-- AD -->
+<div class="ad-slot">
+Premium Ads Area
+</div>
+
+<!-- TOOL -->
+<div class="tool-card" data-name="pdf to jpg">
+<div class="tool-info">
+<i class="fas fa-image"></i>
+<span>PDF to JPG</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+<div class="tool-card" data-name="jpg to pdf">
+<div class="tool-info">
+<i class="fas fa-camera"></i>
+<span>JPG to PDF</span>
+</div>
+<button class="use-btn">Use</button>
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 PDFStudio — Monetization Ready
+</div>
 
 </div>
 
 <script>
 
-const API_URL = "https://pdf-server-production-8b7b.up.railway.app/";
+const API_URL='https://pdf-server-production-8b7b.up.railway.app';
 
-function setProgress(p){
-  document.getElementById("progressBar").style.width = p + "%";
+function showToast(message,isError=false){
+
+let existing=document.querySelector('.pdf-toast');
+
+if(existing) existing.remove();
+
+const toast=document.createElement('div');
+
+toast.className='pdf-toast';
+
+if(isError) toast.classList.add('error');
+
+toast.innerHTML=message;
+
+document.body.appendChild(toast);
+
+setTimeout(()=>{
+
+toast.style.opacity='0';
+
+setTimeout(()=>{
+toast.remove();
+},300);
+
+},3000);
+
 }
 
-async function upload(endpoint, name){
+async function uploadAndDownload(files,endpoint,outputFileName,toolName){
 
-  setProgress(10);
+if(!files || files.length===0){
 
-  let input = document.createElement("input");
-  input.type="file";
-  input.onchange = async ()=>{
+showToast('Please select file',true);
+return;
 
-    setProgress(30);
-
-    let form = new FormData();
-    form.append("files", input.files[0]);
-
-    try{
-
-      let res = await fetch(API_URL + endpoint,{
-        method:"POST",
-        body:form
-      });
-
-      setProgress(70);
-
-      let blob = await res.blob();
-      let url = URL.createObjectURL(blob);
-
-      let a = document.createElement("a");
-      a.href = url;
-      a.download = name;
-      a.click();
-
-      setProgress(100);
-
-      setTimeout(()=> setProgress(0),500);
-
-    }catch(e){
-      alert("Error");
-      setProgress(0);
-    }
-
-  }
-
-  input.click();
 }
 
-/* ADS EVERY 2 TOOLS */
-document.querySelectorAll(".tools-grid").forEach(grid=>{
-  let cards = grid.querySelectorAll(".tool-card");
+const formData=new FormData();
 
-  cards.forEach((c,i)=>{
-    if((i+1)%2===0){
-      let ad=document.createElement("div");
-      ad.className="ad-slot";
-      ad.innerText="ADVERTISEMENT";
-      c.after(ad);
-    }
-  });
+for(let i=0;i<files.length;i++){
+
+formData.append('files',files[i]);
+
+}
+
+const progressWrapper=document.getElementById('progressWrapper');
+
+const progressFill=document.getElementById('progressFill');
+
+const progressPercent=document.getElementById('progressPercent');
+
+const progressText=document.getElementById('progressText');
+
+progressWrapper.style.display='block';
+
+progressFill.style.width='0%';
+
+progressPercent.innerText='0%';
+
+return new Promise((resolve,reject)=>{
+
+const xhr=new XMLHttpRequest();
+
+xhr.open('POST',`${API_URL}${endpoint}`,true);
+
+xhr.upload.onprogress=function(e){
+
+if(e.lengthComputable){
+
+const percent=Math.round((e.loaded/e.total)*100);
+
+progressFill.style.width=percent+'%';
+
+progressPercent.innerText=percent+'%';
+
+progressText.innerText=`Uploading ${toolName}...`;
+
+}
+
+};
+
+xhr.onload=function(){
+
+if(xhr.status===200){
+
+progressFill.style.width='100%';
+
+progressPercent.innerText='100%';
+
+progressText.innerText='Completed';
+
+const blob=xhr.response;
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement('a');
+
+a.href=url;
+
+a.download=outputFileName;
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+showToast(`✅ ${toolName} completed`);
+
+setTimeout(()=>{
+
+progressWrapper.style.display='none';
+
+},2000);
+
+resolve();
+
+}else{
+
+showToast(`❌ ${toolName} failed`,true);
+
+progressWrapper.style.display='none';
+
+reject();
+
+}
+
+};
+
+xhr.onerror=function(){
+
+showToast('❌ Connection error',true);
+
+progressWrapper.style.display='none';
+
+reject();
+
+};
+
+xhr.responseType='blob';
+
+xhr.send(formData);
+
+});
+
+}
+
+function handleSingleFile(endpoint,outputFileName,toolName,accept='.pdf'){
+
+const input=document.createElement('input');
+
+input.type='file';
+
+input.accept=accept;
+
+input.onchange=async()=>{
+
+if(input.files.length){
+
+await uploadAndDownload(
+[input.files[0]],
+endpoint,
+outputFileName,
+toolName
+);
+
+}
+
+};
+
+input.click();
+
+}
+
+function handleMerge(){
+
+const input=document.createElement('input');
+
+input.type='file';
+
+input.accept='.pdf';
+
+input.multiple=true;
+
+input.onchange=async()=>{
+
+if(input.files.length<2){
+
+showToast('Select at least 2 PDFs',true);
+return;
+
+}
+
+await uploadAndDownload(
+Array.from(input.files),
+'/merge',
+'merged.pdf',
+'Merge PDF'
+);
+
+};
+
+input.click();
+
+}
+
+async function realJpgToPdf(files){
+
+const { jsPDF }=window.jspdf;
+
+for(let file of files){
+
+const imgUrl=URL.createObjectURL(file);
+
+const img=new Image();
+
+await new Promise((resolve)=>{
+
+img.onload=()=>{
+
+const pdf=new jsPDF({
+unit:'px',
+format:[img.width,img.height]
+});
+
+pdf.addImage(
+img,
+'JPEG',
+0,
+0,
+img.width,
+img.height
+);
+
+pdf.save(
+file.name.replace(/\.[^/.]+$/,'')+'.pdf'
+);
+
+URL.revokeObjectURL(imgUrl);
+
+resolve();
+
+};
+
+img.src=imgUrl;
+
+});
+
+}
+
+showToast('✅ JPG converted');
+
+}
+
+function handleJpgToPdf(){
+
+const input=document.createElement('input');
+
+input.type='file';
+
+input.accept='.jpg,.jpeg,.png';
+
+input.multiple=true;
+
+input.onchange=async()=>{
+
+if(input.files.length){
+
+await realJpgToPdf(Array.from(input.files));
+
+}
+
+};
+
+input.click();
+
+}
+
+function handleTool(toolId){
+
+switch(toolId){
+
+case 'pdf-to-word':
+handleSingleFile('/pdf-to-word','converted.docx','PDF to Word');
+break;
+
+case 'word-to-pdf':
+handleSingleFile('/word-to-pdf','converted.pdf','Word to PDF','.doc,.docx');
+break;
+
+case 'merge-pdf':
+handleMerge();
+break;
+
+case 'compress-pdf':
+handleSingleFile('/compress','compressed.pdf','Compress PDF');
+break;
+
+case 'split-pdf':
+handleSingleFile('/split','split.zip','Split PDF');
+break;
+
+case 'unlock-pdf':
+handleSingleFile('/unlock','unlocked.pdf','Unlock PDF');
+break;
+
+case 'pdf-to-jpg':
+handleSingleFile('/pdf-to-jpg','images.zip','PDF to JPG');
+break;
+
+case 'jpg-to-pdf':
+handleJpgToPdf();
+break;
+
+default:
+showToast('Coming soon');
+
+}
+
+}
+
+document.querySelectorAll('.use-btn').forEach(btn=>{
+
+btn.addEventListener('click',()=>{
+
+const card=btn.closest('.tool-card');
+
+const toolId=card
+.getAttribute('data-name')
+.toLowerCase()
+.replace(/ /g,'-');
+
+handleTool(toolId);
+
+});
+
+});
+
+document.getElementById('filterSearch')
+.addEventListener('input',(e)=>{
+
+const query=e.target.value.toLowerCase();
+
+document.querySelectorAll('.tool-card')
+.forEach(card=>{
+
+const text=card.innerText.toLowerCase();
+
+card.classList.toggle(
+'hide-tool',
+!text.includes(query)
+);
+
+});
+
 });
 
 </script>
