@@ -287,7 +287,5 @@ def pdf_to_ppt():
     prs.save(out)
     return send_file(out, as_attachment=True)
 
-# ---------------- RUN (RAILWAY SAFE) ----------------
-# IMPORTANT: DO NOT use app.run() on Railway
 
 
