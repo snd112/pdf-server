@@ -3,28 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <title>PDFStudio</title>
+
 <style>
 body{font-family:Arial;background:#f4f8f6;text-align:center}
 button{padding:12px 20px;margin:10px;border-radius:20px;border:none;background:#1f2937;color:white}
 button:hover{background:#1e6f5c}
+
+.ad{background:#ddd;padding:20px;margin:10px;border-radius:15px}
 </style>
 </head>
 <body>
 
 <h1>PDFStudio Tools</h1>
 
+<div class="ad">Ad Slot</div>
+
 <button onclick="upload('/merge',true)">Merge PDF</button>
 <button onclick="upload('/split')">Split PDF</button>
+
+<div class="ad">Ad Slot</div>
+
 <button onclick="upload('/pdf-to-word')">PDF to Word</button>
 <button onclick="upload('/word-to-pdf')">Word to PDF</button>
+
+<div class="ad">Ad Slot</div>
+
 <button onclick="upload('/jpg-to-pdf',true)">JPG to PDF</button>
 <button onclick="upload('/pdf-to-jpg')">PDF to JPG</button>
+
+<div class="ad">Ad Slot</div>
+
 <button onclick="upload('/ocr')">OCR</button>
 <button onclick="upload('/compress')">Compress</button>
 
 <script>
 
-const API = "https://YOUR-RAILWAY-LINK.up.railway.app";
+const API = window.location.origin; // 🔥 أهم تعديل
 
 function upload(endpoint,multi=false){
 let i=document.createElement("input");
@@ -33,7 +47,6 @@ i.multiple=multi;
 
 i.onchange=async()=>{
 let f=new FormData();
-
 for(let x of i.files){
 f.append("files",x);
 }
