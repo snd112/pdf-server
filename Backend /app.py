@@ -290,4 +290,4 @@ def pdf_to_ppt():
 # ---------------- RUN (RAILWAY SAFE) ----------------
 # IMPORTANT: DO NOT use app.run() on Railway
 
-app = app
+
