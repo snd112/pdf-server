@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PDFStudio – All PDF Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;background:#f4f8f6;margin:0}
+.container{max-width:1200px;margin:auto;padding:20px}
+.tool{background:#fff;padding:18px;margin:10px 0;border-radius:15px;display:flex;justify-content:space-between;align-items:center}
+button{padding:10px 24px;border:none;border-radius:30px;background:#1e6f5c;color:#fff;font-weight:bold;cursor:pointer}
+.ad{height:130px;background:#e0e0e0;border-radius:20px;margin:30px 0;display:flex;align-items:center;justify-content:center;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>PDFStudio – All PDF Tools</h1>
+
+<div class="tool">PDF to Word<button onclick="run('/pdf-to-word')">Convert</button></div>
+<div class="tool">Word to PDF<button onclick="run('/word-to-pdf')">Convert</button></div>
+<div class="tool">PDF to Excel<button onclick="run('/pdf-to-excel')">Convert</button></div>
+<div class="tool">Excel to PDF<button onclick="run('/excel-to-pdf')">Convert</button></div>
+<div class="tool">PDF to PowerPoint<button onclick="run('/pdf-to-powerpoint')">Convert</button></div>
+<div class="tool">PowerPoint to PDF<button onclick="run('/powerpoint-to-pdf')">Convert</button></div>
+<div class="tool">PDF to JPG<button onclick="run('/pdf-to-jpg')">Convert</button></div>
+<div class="tool">JPG to PDF<button onclick="run('/jpg-to-pdf',true)">Convert</button></div>
+
+<div class="ad">Ad Slot</div>
+
+<div class="tool">Merge PDF<button onclick="run('/merge',true)">Convert</button></div>
+<div class="tool">Split PDF<button onclick="run('/split')">Convert</button></div>
+<div class="tool">Compress PDF<button onclick="run('/compress')">Convert</button></div>
+<div class="tool">Protect PDF<button onclick="run('/protect')">Convert</button></div>
+<div class="tool">Unlock PDF<button onclick="run('/unlock')">Convert</button></div>
+<div class="tool">OCR PDF<button onclick="run('/ocr')">Convert</button></div>
+
+</div>
+
+<script>
+const API_URL="https://YOUR-RAILWAY-URL.up.railway.app";
+function run(ep,multi=false){
+ let i=document.createElement('input');
+ i.type='file';
+ i.multiple=multi;
+ i.onchange=()=>{
+   let f=new FormData();
+   for(let x of i.files)f.append('files',x);
+   fetch(API_URL+ep,{method:'POST',body:f})
+   .then(r=>r.blob())
+   .then(b=>{
+     let a=document.createElement('a');
+     a.href=URL.createObjectURL(b);
+     a.download='output';
+     a.click();
+   });
+ }
+ i.click();
+}
+</script>
+</body>
+</html>
