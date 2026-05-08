@@ -15,6 +15,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ✅ إضافة خدمة الملفات الثابتة - هذا هو الحل!
+app.use(express.static(__dirname));
+
 // مجلد مؤقت
 const TEMP_DIR = path.join(__dirname, 'temp');
 if (!fs.existsSync(TEMP_DIR)) fs.mkdirSync(TEMP_DIR);
@@ -31,30 +34,27 @@ function cleanupFile(filepath) {
     if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
 }
 
-// ===================== الصفحة الرئيسية =====================
+// ✅ الصفحة الرئيسية - ترجع ملف index.html
 app.get('/', (req, res) => {
-    res.json({
-        status: '✅ PDF Server is running!',
-        endpoints: [
-            'POST /pdf-to-word',
-            'POST /word-to-pdf', 
-            'POST /pdf-to-excel',
-            'POST /excel-to-pdf',
-            'POST /merge',
-            'POST /split',
-            'POST /compress',
-            'POST /protect',
-            'POST /unlock',
-            'POST /ocr',
-            'POST /pdf-to-powerpoint',
-            'POST /powerpoint-to-pdf',
-            'POST /pdf-to-jpg',
-            'POST /jpg-to-pdf'
-        ]
-    });
+    const indexPath = path.join(__dirname, 'index.html');
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        res.json({
+            status: '✅ PDF Server is running!',
+            message: 'index.html not found in root directory',
+            endpoints: [
+                'POST /pdf-to-word', 'POST /word-to-pdf', 'POST /pdf-to-excel',
+                'POST /excel-to-pdf', 'POST /merge', 'POST /split', 'POST /compress',
+                'POST /protect', 'POST /unlock', 'POST /ocr', 'POST /pdf-to-powerpoint',
+                'POST /powerpoint-to-pdf', 'POST /pdf-to-jpg', 'POST /jpg-to-pdf'
+            ]
+        });
+    }
 });
 
-// ===================== 1. PDF to Word =====================
+// ===================== جميع الـ endpoints كما هي =====================
+
 app.post('/pdf-to-word', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -63,7 +63,6 @@ app.post('/pdf-to-word', upload.single('files'), async (req, res) => {
         const pdfBuffer = fs.readFileSync(filePath);
         const data = await pdfParse(pdfBuffer);
         
-        // إنشاء ملف نصي بسيط
         const outputPath = path.join(TEMP_DIR, `output_${Date.now()}.txt`);
         fs.writeFileSync(outputPath, data.text);
         
@@ -77,7 +76,6 @@ app.post('/pdf-to-word', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 2. Word to PDF =====================
 app.post('/word-to-pdf', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -103,7 +101,6 @@ app.post('/word-to-pdf', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 3. PDF to Excel =====================
 app.post('/pdf-to-excel', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -112,7 +109,6 @@ app.post('/pdf-to-excel', upload.single('files'), async (req, res) => {
         const pdfBuffer = fs.readFileSync(filePath);
         const data = await pdfParse(pdfBuffer);
         
-        // إنشاء CSV بسيط
         const outputPath = path.join(TEMP_DIR, `output_${Date.now()}.csv`);
         const lines = data.text.split('\n');
         const csvContent = lines.map(line => `"${line.replace(/"/g, '""')}"`).join('\n');
@@ -128,7 +124,6 @@ app.post('/pdf-to-excel', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 4. Excel to PDF =====================
 app.post('/excel-to-pdf', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -154,7 +149,6 @@ app.post('/excel-to-pdf', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 5. Merge PDF =====================
 app.post('/merge', upload.array('files'), async (req, res) => {
     const filePaths = req.files.map(f => f.path);
     if (filePaths.length < 2) return res.status(400).json({ error: 'Need at least 2 PDF files' });
@@ -182,7 +176,6 @@ app.post('/merge', upload.array('files'), async (req, res) => {
     }
 });
 
-// ===================== 6. Split PDF =====================
 app.post('/split', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -221,14 +214,12 @@ app.post('/split', upload.single('files'), async (req, res) => {
                 }
             });
         });
-        
     } catch (err) {
         cleanupFile(filePath);
         res.status(500).json({ error: err.message });
     }
 });
 
-// ===================== 7. Compress PDF =====================
 app.post('/compress', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -236,8 +227,6 @@ app.post('/compress', upload.single('files'), async (req, res) => {
     try {
         const pdfBytes = fs.readFileSync(filePath);
         const pdf = await PDFDocument.load(pdfBytes);
-        
-        // مجرد إعادة حفظ للضغط
         const compressedBytes = await pdf.save();
         
         res.setHeader('Content-Type', 'application/pdf');
@@ -251,7 +240,6 @@ app.post('/compress', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 8. Protect PDF =====================
 app.post('/protect', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -263,11 +251,7 @@ app.post('/protect', upload.single('files'), async (req, res) => {
         pdf.encrypt({
             userPassword: 'protected123',
             ownerPassword: 'owner123',
-            permissions: {
-                printing: 'lowResolution',
-                modifying: false,
-                copying: false
-            }
+            permissions: { printing: 'lowResolution', modifying: false, copying: false }
         });
         
         const protectedBytes = await pdf.save();
@@ -283,7 +267,6 @@ app.post('/protect', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 9. Unlock PDF =====================
 app.post('/unlock', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -308,7 +291,6 @@ app.post('/unlock', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 10. OCR PDF =====================
 app.post('/ocr', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -322,7 +304,6 @@ app.post('/ocr', upload.single('files'), async (req, res) => {
         
         page.drawText("OCR Extracted Text:", { x: 50, y: 750, size: 14 });
         
-        // إضافة النص المستخرج
         const lines = data.text.split('\n');
         let y = 700;
         for (const line of lines.slice(0, 50)) {
@@ -344,7 +325,6 @@ app.post('/ocr', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 11. PDF to PowerPoint =====================
 app.post('/pdf-to-powerpoint', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -376,7 +356,6 @@ app.post('/pdf-to-powerpoint', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 12. PowerPoint to PDF =====================
 app.post('/powerpoint-to-pdf', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -401,7 +380,6 @@ app.post('/powerpoint-to-pdf', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 13. PDF to JPG =====================
 app.post('/pdf-to-jpg', upload.single('files'), async (req, res) => {
     const filePath = req.file?.path;
     if (!filePath) return res.status(400).json({ error: 'No file uploaded' });
@@ -416,7 +394,6 @@ app.post('/pdf-to-jpg', upload.single('files'), async (req, res) => {
         
         archive.pipe(output);
         
-        // إضافة صفحات كنصوص
         for (let i = 0; i < data.numpages; i++) {
             const textPath = path.join(TEMP_DIR, `page_${i + 1}.txt`);
             fs.writeFileSync(textPath, `Page ${i + 1}\n\n${data.text.substring(0, 500)}`);
@@ -441,7 +418,6 @@ app.post('/pdf-to-jpg', upload.single('files'), async (req, res) => {
     }
 });
 
-// ===================== 14. JPG to PDF =====================
 app.post('/jpg-to-pdf', upload.array('files'), async (req, res) => {
     const filePaths = req.files.map(f => f.path);
     if (!filePaths.length) return res.status(400).json({ error: 'No files uploaded' });
@@ -451,20 +427,17 @@ app.post('/jpg-to-pdf', upload.array('files'), async (req, res) => {
         
         for (let i = 0; i < filePaths.length; i++) {
             const page = pdfDoc.addPage([612, 792]);
-            const font = await pdfDoc.embedFont('Helvetica');
             
             page.drawText(`Image ${i + 1}: ${path.basename(filePaths[i])}`, {
                 x: 50,
                 y: page.getHeight() - 50,
-                size: 12,
-                font: font
+                size: 12
             });
             
             page.drawText(`Converted to PDF on ${new Date().toLocaleString()}`, {
                 x: 50,
                 y: page.getHeight() - 100,
-                size: 10,
-                font: font
+                size: 10
             });
         }
         
@@ -481,8 +454,9 @@ app.post('/jpg-to-pdf', upload.array('files'), async (req, res) => {
     }
 });
 
-// ===================== تشغيل السيرفر =====================
+// تشغيل السيرفر
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`✅ Server running on http://localhost:${PORT}`);
-    console.log(`📡 Ready to accept requests`);
+    console.log(`📁 Current directory: ${__dirname}`);
+    console.log(`📄 index.html exists: ${fs.existsSync(path.join(__dirname, 'index.html'))}`);
 });
