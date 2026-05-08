@@ -1,150 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>PDFStudio – All PDF Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>PDFStudio</title>
 <style>
-body{
-  font-family:Arial;
-  background:#f4f8f6;
-  margin:0;
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
-}
-
-h1{
-  text-align:center;
-}
-
-.tool{
-  background:#fff;
-  padding:18px;
-  margin:12px 0;
-  border-radius:15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 2px 8px rgba(0,0,0,0.05);
-}
-
-button{
-  padding:10px 22px;
-  border:none;
-  border-radius:25px;
-  background:#1e6f5c;
-  color:#fff;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.2s;
-}
-
-button:hover{
-  background:#145046;
-}
-
-.ad{
-  height:120px;
-  background:#e0e0e0;
-  border-radius:20px;
-  margin:25px 0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-#loader{
-  display:none;
-  text-align:center;
-  margin:15px 0;
-  font-weight:bold;
-}
+body{font-family:Arial;background:#f4f8f6;text-align:center}
+button{padding:12px 20px;margin:10px;border-radius:20px;border:none;background:#1f2937;color:white}
+button:hover{background:#1e6f5c}
 </style>
 </head>
-
 <body>
 
-<div class="container">
-<h1>PDFStudio – All PDF Tools</h1>
+<h1>PDFStudio Tools</h1>
 
-<div id="loader">⏳ Processing file...</div>
-
-<div class="tool">PDF to Word <button onclick="run('/pdf-to-word')">Convert</button></div>
-<div class="tool">Word to PDF <button onclick="run('/word-to-pdf')">Convert</button></div>
-<div class="tool">PDF to Excel <button onclick="run('/pdf-to-excel')">Convert</button></div>
-<div class="tool">Excel to PDF <button onclick="run('/excel-to-pdf')">Convert</button></div>
-<div class="tool">PDF to JPG <button onclick="run('/pdf-to-jpg')">Convert</button></div>
-<div class="tool">JPG to PDF <button onclick="run('/jpg-to-pdf',true)">Convert</button></div>
-
-<div class="ad">Ad Slot</div>
-
-<div class="tool">Merge PDF <button onclick="run('/merge',true)">Convert</button></div>
-<div class="tool">Split PDF <button onclick="run('/split')">Convert</button></div>
-<div class="tool">Compress PDF <button onclick="run('/compress')">Convert</button></div>
-<div class="tool">Protect PDF <button onclick="run('/protect')">Convert</button></div>
-<div class="tool">Unlock PDF <button onclick="run('/unlock')">Convert</button></div>
-<div class="tool">OCR PDF <button onclick="run('/ocr')">Convert</button></div>
-
-</div>
+<button onclick="upload('/merge',true)">Merge PDF</button>
+<button onclick="upload('/split')">Split PDF</button>
+<button onclick="upload('/pdf-to-word')">PDF to Word</button>
+<button onclick="upload('/word-to-pdf')">Word to PDF</button>
+<button onclick="upload('/jpg-to-pdf',true)">JPG to PDF</button>
+<button onclick="upload('/pdf-to-jpg')">PDF to JPG</button>
+<button onclick="upload('/ocr')">OCR</button>
+<button onclick="upload('/compress')">Compress</button>
 
 <script>
-const API_URL="https://pdf-server-production-8b7b.up.railway.app/";
 
-function showLoader(v){
-  document.getElementById("loader").style.display = v ? "block" : "none";
+const API = "https://YOUR-RAILWAY-LINK.up.railway.app";
+
+function upload(endpoint,multi=false){
+let i=document.createElement("input");
+i.type="file";
+i.multiple=multi;
+
+i.onchange=async()=>{
+let f=new FormData();
+
+for(let x of i.files){
+f.append("files",x);
 }
 
-function getFileName(ep){
-  let name = ep.replace("/","") + ".pdf";
-  return name;
+let r=await fetch(API+endpoint,{method:"POST",body:f});
+let b=await r.blob();
+
+let a=document.createElement("a");
+a.href=URL.createObjectURL(b);
+a.download="file";
+a.click();
 }
 
-function run(ep,multi=false){
-  let i=document.createElement('input');
-  i.type='file';
-  i.multiple=multi;
-
-  i.onchange=()=>{
-    let f=new FormData();
-    for(let x of i.files){
-      f.append('files',x);
-    }
-
-    showLoader(true);
-
-    fetch(API_URL+ep,{
-      method:'POST',
-      body:f
-    })
-    .then(async r=>{
-      showLoader(false);
-
-      if(!r.ok){
-        throw new Error("Server error");
-      }
-
-      return r.blob();
-    })
-    .then(b=>{
-      let a=document.createElement('a');
-      a.href=URL.createObjectURL(b);
-      a.download=getFileName(ep);
-      a.click();
-    })
-    .catch(err=>{
-      showLoader(false);
-      alert("❌ Error: " + err.message);
-    });
-  }
-
-  i.click();
+i.click();
 }
+
 </script>
 
 </body>
