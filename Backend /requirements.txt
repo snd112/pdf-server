@@ -11,3 +11,4 @@ pillow
 pandas
 openpyxl
 python-pptx
+docx2pdf
