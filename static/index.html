@@ -1,133 +1,182 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>PDFStudio | Professional PDF Tools</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>PDFStudio | Professional PDF Tools</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: #f4f8f6; color: #0f1720; }
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f4f8f6; color:#0f1720; }
 
-.container { max-width: 1440px; margin: 0 auto; padding: 0 32px; }
+    .container { max-width:1440px; margin:auto; padding:0 32px; }
 
-.site-header {
-  background: rgba(255,255,255,0.96);
-  backdrop-filter: blur(4px);
-  padding: 20px 0;
-  border-bottom: 1px solid #e2ece5;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+    .site-header {
+      background:#fff;
+      padding:20px 0;
+      border-bottom:1px solid #e2ece5;
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter:blur(4px);
+    }
 
-.header-flex { display: flex; justify-content: space-between; align-items: center; }
+    .header-flex { display:flex; justify-content:space-between; align-items:center; }
 
-.logo { display: flex; gap: 12px; font-size: 28px; font-weight: 800; }
-.logo i { font-size: 36px; color: #e11d48; }
+    .logo { display:flex; gap:12px; font-size:28px; font-weight:800; }
+    .logo i { font-size:36px; color:#e11d48; }
+    .logo span { background:linear-gradient(135deg,#0f2b3d,#1e6f5c); -webkit-background-clip:text; color:transparent; }
 
-.hero-area { text-align: center; margin: 60px 0 40px; }
-.hero-area h1 { font-size: 3rem; font-weight: 800; }
-.hero-area p { color: #5c6f7e; margin-top: 10px; }
+    .header-badge {
+      background:#ecf3ef;
+      padding:6px 18px;
+      border-radius:40px;
+      color:#1e6f5c;
+      font-size:13px;
+    }
 
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin: 40px 0;
-}
+    .hero-area { text-align:center; margin:60px 0 40px; }
 
-.tool-card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
+    .hero-area h1 {
+      font-size:3.4rem;
+      font-weight:800;
+      background:linear-gradient(135deg,#1e293b,#1e6f5c);
+      -webkit-background-clip:text;
+      color:transparent;
+    }
 
-.use-btn {
-  background: #1f2a3e;
-  color: white;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 30px;
-  cursor: pointer;
-}
+    .search-block { max-width:540px; margin:30px auto; position:relative; }
+    .search-block i { position:absolute; left:20px; top:50%; transform:translateY(-50%); }
 
-.ad-slot {
-  background: #eef4f1;
-  min-height: 120px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed #cbdcd4;
-  margin: 10px 0;
-}
+    #filterSearch {
+      width:100%;
+      padding:15px 22px 15px 54px;
+      border-radius:80px;
+      border:2px solid #dfe9e4;
+      outline:none;
+    }
 
-.progress-container {
-  width: 100%;
-  background: #e5e7eb;
-  border-radius: 20px;
-  overflow: hidden;
-  height: 12px;
-  margin: 20px 0;
-  display: none;
-}
+    .tools-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:30px;
+      margin:40px 0;
+    }
 
-.progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg,#1e6f5c,#22c55e);
-  transition: 0.3s;
-}
+    .tool-card {
+      background:#fff;
+      border-radius:28px;
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
+      transition:0.3s;
+    }
 
-.hide-tool { display: none; }
-</style>
+    .tool-card:hover { transform:translateY(-5px); }
+
+    .tool-info { display:flex; gap:12px; align-items:center; }
+
+    .use-btn {
+      background:#1f2a3e;
+      color:#fff;
+      border:none;
+      padding:9px 22px;
+      border-radius:40px;
+      cursor:pointer;
+    }
+
+    .ad-slot {
+      background:#eef4f1;
+      min-height:120px;
+      margin:20px 0;
+      border-radius:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:2px dashed #cbdcd4;
+      font-size:14px;
+      color:#666;
+    }
+
+    .hide-tool { display:none; }
+
+    /* PROGRESS BAR */
+    #progressBar {
+      position:fixed;
+      top:0;
+      left:0;
+      height:4px;
+      width:0%;
+      background:#1e6f5c;
+      z-index:9999;
+      transition:0.2s;
+    }
+
+  </style>
 </head>
 
 <body>
 
+<div id="progressBar"></div>
+
 <div class="site-header">
-<div class="container header-flex">
-<div class="logo">
-<i class="fas fa-file-pdf"></i> PDFStudio
-</div>
-</div>
+  <div class="container header-flex">
+    <div class="logo">
+      <i class="fas fa-file-pdf"></i>
+      <span>PDFStudio</span>
+    </div>
+    <div class="header-badge">Tools Ready</div>
+  </div>
 </div>
 
 <div class="container">
 
-<div class="hero-area">
-<h1>master your PDFs</h1>
-<p>convert, merge, split, protect & more</p>
-</div>
+  <div class="hero-area">
+    <h1>Master Your PDFs</h1>
 
-<!-- Progress Bar -->
-<div class="progress-container" id="progressContainer">
-<div class="progress-bar" id="progressBar"></div>
-</div>
+    <div class="search-block">
+      <i class="fas fa-search"></i>
+      <input id="filterSearch" placeholder="Search tool...">
+    </div>
+  </div>
 
-<!-- GRID 1 -->
-<div class="tools-grid">
+  <div class="ad-slot">ADVERTISEMENT</div>
 
-<div class="tool-card"><span>PDF to Word</span><button class="use-btn">Use</button></div>
-<div class="tool-card"><span>Word to PDF</span><button class="use-btn">Use</button></div>
+  <div class="tools-grid">
 
-<!-- AD -->
-<div class="ad-slot">Ad Space</div>
+    <div class="tool-card">
+      <div class="tool-info"><i class="fas fa-file-word"></i>PDF to Word</div>
+      <button class="use-btn" onclick="upload('/pdf-to-word','word.docx')">Use</button>
+    </div>
 
-<div class="tool-card"><span>PDF to Excel</span><button class="use-btn">Use</button></div>
-<div class="tool-card"><span>Excel to PDF</span><button class="use-btn">Use</button></div>
+    <div class="tool-card">
+      <div class="tool-info"><i class="fas fa-file-pdf"></i>Word to PDF</div>
+      <button class="use-btn" onclick="upload('/word-to-pdf','file.pdf')">Use</button>
+    </div>
 
-<!-- AD -->
-<div class="ad-slot">Ad Space</div>
+  </div>
+
+  <div class="ad-slot">ADVERTISEMENT</div>
+
+  <div class="tools-grid">
+
+    <div class="tool-card">
+      <div class="tool-info"><i class="fas fa-file-excel"></i>PDF to Excel</div>
+      <button class="use-btn" onclick="upload('/pdf-to-excel','file.xlsx')">Use</button>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-info"><i class="fas fa-image"></i>PDF to JPG</div>
+      <button class="use-btn" onclick="upload('/pdf-to-jpg','images.zip')">Use</button>
+    </div>
+
+  </div>
 
 </div>
 
@@ -135,50 +184,66 @@ body { font-family: 'Inter', sans-serif; background: #f4f8f6; color: #0f1720; }
 
 const API_URL = "https://pdf-server-production-8b7b.up.railway.app/";
 
-const progressContainer = document.getElementById("progressContainer");
-const progressBar = document.getElementById("progressBar");
-
-function setProgress(val){
-  progressContainer.style.display = "block";
-  progressBar.style.width = val + "%";
-  if(val >= 100){
-    setTimeout(()=>progressContainer.style.display="none", 500);
-  }
+function setProgress(p){
+  document.getElementById("progressBar").style.width = p + "%";
 }
 
-function showToast(msg){
-  alert(msg);
-}
+async function upload(endpoint, name){
 
-async function upload(file){
-  const formData = new FormData();
-  formData.append("file", file);
+  setProgress(10);
 
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", API_URL + "upload");
+  let input = document.createElement("input");
+  input.type="file";
+  input.onchange = async ()=>{
 
-  xhr.upload.onprogress = (e)=>{
-    if(e.lengthComputable){
-      let percent = (e.loaded / e.total) * 100;
-      setProgress(percent);
+    setProgress(30);
+
+    let form = new FormData();
+    form.append("files", input.files[0]);
+
+    try{
+
+      let res = await fetch(API_URL + endpoint,{
+        method:"POST",
+        body:form
+      });
+
+      setProgress(70);
+
+      let blob = await res.blob();
+      let url = URL.createObjectURL(blob);
+
+      let a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.click();
+
+      setProgress(100);
+
+      setTimeout(()=> setProgress(0),500);
+
+    }catch(e){
+      alert("Error");
+      setProgress(0);
     }
-  };
 
-  xhr.onload = ()=>{
-    setProgress(100);
-    showToast("Done!");
-  };
+  }
 
-  xhr.send(formData);
+  input.click();
 }
 
-document.querySelectorAll(".use-btn").forEach(btn=>{
-  btn.onclick = ()=>{
-    const input = document.createElement("input");
-    input.type = "file";
-    input.onchange = ()=> upload(input.files[0]);
-    input.click();
-  }
+/* ADS EVERY 2 TOOLS */
+document.querySelectorAll(".tools-grid").forEach(grid=>{
+  let cards = grid.querySelectorAll(".tool-card");
+
+  cards.forEach((c,i)=>{
+    if((i+1)%2===0){
+      let ad=document.createElement("div");
+      ad.className="ad-slot";
+      ad.innerText="ADVERTISEMENT";
+      c.after(ad);
+    }
+  });
 });
 
 </script>
