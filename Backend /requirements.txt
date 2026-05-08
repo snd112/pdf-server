@@ -4,11 +4,8 @@ gunicorn
 PyPDF2
 python-docx
 pdfplumber
-pdf2image
 reportlab
-pytesseract
-pillow
 pandas
 openpyxl
 python-pptx
-docx2pdf
+pillow
