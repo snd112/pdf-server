@@ -1,12 +1,13 @@
 flask
 flask-cors
+gunicorn
 PyPDF2
-pdfplumber
 python-docx
-docx2pdf
+pdfplumber
 pdf2image
-pytesseract
-Pillow
 reportlab
+pytesseract
+pillow
 pandas
 openpyxl
+python-pptx
