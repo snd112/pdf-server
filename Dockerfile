@@ -4,5 +4,5 @@ RUN apt-get update && apt-get install -y  libreoffice  poppler-utils  ghostscrip
 WORKDIR /app
 COPY . .
 RUN npm install
-EXPOSE 3000
+EXPOSE 8080 
 CMD ["npm","start"]
