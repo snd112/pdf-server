@@ -1,4 +1,3 @@
-
 FROM node:18
 RUN apt-get update && apt-get install -y  libreoffice  poppler-utils  ghostscript  qpdf  tesseract-ocr  tesseract-ocr-eng
 WORKDIR /app
