@@ -119,4 +119,7 @@ app.post("/ocr-pdf", upload.single("file"), async (req,res)=>{
   res.send(r.data.text);
 });
 
-app.listen(3000,()=>console.log("PDFStudio backend running on 3000"));
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log("PDFStudio backend running on port", PORT);
+});
