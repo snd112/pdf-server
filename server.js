@@ -6,12 +6,17 @@ const path = require("path");
 const { PDFDocument } = require("pdf-lib");
 const sharp = require("sharp");
 const Tesseract = require("tesseract.js");
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const upload = multer({ dest: "uploads/" });
 
+// ---------- folders ----------
 ["uploads", "output"].forEach(d => {
   if (!fs.existsSync(d)) fs.mkdirSync(d);
 });
@@ -20,15 +25,19 @@ const upload = multer({ dest: "uploads/" });
 const run = (cmd) =>
   new Promise((resolve, reject) => {
     exec(cmd, (err, stdout, stderr) => {
-      if (err) return reject(stderr || err);
+      if (err) return reject(stderr || err.message);
       resolve(stdout);
     });
   });
 
-const latestFile = (dir) =>
-  fs.readdirSync(dir)
+const latestFile = (dir) => {
+  const files = fs.readdirSync(dir);
+  if (!files.length) return null;
+
+  return files
     .map(f => path.join(dir, f))
     .sort((a, b) => fs.statSync(b).mtime - fs.statSync(a).mtime)[0];
+};
 
 // ---------- OFFICE ----------
 
@@ -140,16 +149,26 @@ app.post("/unlock-pdf", upload.single("file"), async (req, res) => {
 });
 
 // ---------- OCR (FIXED) ----------
-// لازم نحول PDF لصورة الأول
+
 app.post("/ocr-pdf", upload.single("file"), async (req, res) => {
   const imgBase = `output/ocr_${Date.now()}`;
   await run(`pdftoppm "${req.file.path}" "${imgBase}" -png`);
 
   const img = fs.readdirSync("output").find(f => f.includes("ocr_") && f.endsWith(".png"));
-  const imgPath = path.join("output", img);
 
-  const result = await Tesseract.recognize(imgPath, "eng");
+  if (!img) return res.status(500).send("OCR failed: no image generated");
+
+  const result = await Tesseract.recognize(
+    path.join("output", img),
+    "eng"
+  );
+
   res.send(result.data.text);
+});
+
+// ---------- HEALTH CHECK ----------
+app.get("/", (req, res) => {
+  res.json({ status: "PDFStudio backend is running 🚀" });
 });
 
 // ---------- SERVER ----------
